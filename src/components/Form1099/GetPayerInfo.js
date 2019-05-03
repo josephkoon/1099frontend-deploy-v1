@@ -111,7 +111,7 @@ class GetPayerInfo extends React.Component {
             errorMessage = 'Payer TIN is not valid.  Must be 9 digits.'
         }
         if (!value) {
-            errorMessage = 'TIN is required.'
+            errorMessage = 'Payer TIN is required.'
         } 
 
         this.setState({tinError:errorMessage}, () => {
@@ -285,7 +285,7 @@ render() {
 
 
             <div align="left">
-                <label>Federal Tax ID * XX-XXXXXXX</label>
+                <label>Payer Federal Tax ID * XX-XXXXXXX</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="tin" 
                         style={this.state.tinError ? errorStyle : null}
@@ -300,7 +300,7 @@ render() {
 
 
             <div align="left">
-                <label>Payer Address *</label>
+                <label>Payer Street Address *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="street" 
                         style={this.state.streetError ? errorStyle : null}
@@ -362,7 +362,7 @@ render() {
             
 
             <div align="left">
-                <label>Phone Number * XXX-XXX-XXXX</label>
+                <label>Payer Phone Number * XXX-XXX-XXXX</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="phone" 
                         style={this.state.phoneError ? errorStyle : null}

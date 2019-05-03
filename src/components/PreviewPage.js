@@ -63,7 +63,7 @@ class Preview extends Component {
 		                <Link to='/checkout'>
 		                    <a class="btn btn-primary btn-lg" href="#" role="button">
 		                    	<strong>Checkout</strong>
-		                    	<i style={{marginLeft:'8px', fontSize:'18px'}} class="fas fa-angle-double-right"></i>
+		                    	<i style={{marginLeft:'2px', fontSize:'18px'}} class="fas fa-angle-double-right"></i>
 		                    </a>
 		                </Link>
 		                <br/>

@@ -18,11 +18,9 @@ class GetIncome extends React.Component {
             rentError:'',
             isTouchedRent: false,
 
-
             royalties: '',
             royaltiesError:'',
             isTouchedRoyalties: false,
-
 
             other: '',
             otherError:'',
@@ -33,7 +31,6 @@ class GetIncome extends React.Component {
             federal_tax_withheldError:'',
             isTouchedFederal_tax_withheld: false,
 
-
             non_employee_comp: '',
             non_employee_compError:'',
             isTouchedNon_employee_comp: false,
@@ -43,26 +40,41 @@ class GetIncome extends React.Component {
             s409a_incomeError:'',
             isTouchedS409a_income: false,
 
-
             s409a_deferrals: '',
             s409a_deferralsError:'',
             isTouchedS409a_deferrals: false,
-
 
             direct_sales: false,
             direct_salesError:'',
             isTouchedDirect_sales: false,
 
 
+
+            fish_boat: '',
+            fish_boatError:'',
+            isTouchedFish_boat: false,
+
+            golden: '',
+            goldenError:'',
+            isTouchedGolden: false,
+
+            crop_ins: '',
+            crop_insError:'',
+            isTouchedCrop_ins: false,
+
+            attorney: '',
+            attorneyError:'',
+            isTouchedAttorney: false,
+
+
+
             state_tax_withheld: '',
             state_tax_withheldError:'',
             isTouchedState_tax_withheld: false,
 
- 
             state_tax_id: '',
             state_tax_idError:'',
             isTouchedState_tax_id: false,
-
 
             state_income: '',
             state_incomeError:'',
@@ -101,6 +113,27 @@ class GetIncome extends React.Component {
         this.handleSubstitute_paymentsBlur = this.handleSubstitute_paymentsBlur.bind(this);
         this.handleSubstitute_paymentsChange = this.handleSubstitute_paymentsChange.bind(this);
 
+
+
+
+
+        this.handleFish_boatBlur = this.handleFish_boatBlur.bind(this);
+        this.handleFish_boatChange = this.handleFish_boatChange.bind(this);
+
+        this.handleGoldenBlur = this.handleGoldenBlur.bind(this);
+        this.handleGoldenChange = this.handleGoldenChange.bind(this);
+
+        this.handleCrop_insBlur = this.handleCrop_insBlur.bind(this);
+        this.handleCrop_insChange = this.handleCrop_insChange.bind(this);
+
+        this.handleAttorneyBlur = this.handleAttorneyBlur.bind(this);
+        this.handleAttorneyChange = this.handleAttorneyChange.bind(this);
+
+
+
+
+
+
         this.handleState_tax_withheldBlur = this.handleState_tax_withheldBlur.bind(this);
         this.handleState_tax_withheldChange = this.handleState_tax_withheldChange.bind(this);
 
@@ -131,13 +164,11 @@ class GetIncome extends React.Component {
 
 
 
-
     handleRentChange(e) {
         this.setState({ rent:e.target.value, isTouchedRent:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
-
     handleRentBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -155,7 +186,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleRoyaltiesBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -173,7 +203,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleOtherBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -191,7 +220,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleFederal_tax_withheldBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -209,7 +237,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleNon_employee_compBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -229,7 +256,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleS409a_incomeBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -249,7 +275,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleS409a_deferralsBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -270,7 +295,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleSubstitute_paymentsBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -285,6 +309,77 @@ class GetIncome extends React.Component {
 
 
 
+    handleFish_boatChange(e) {
+        this.setState({ fish_boat:e.target.value, isTouchedFish_boat:true }, () => {
+            this.props.updateIncome(this.state)
+        });
+    }
+    handleFish_boatBlur(e) {
+        let value = e.target.value; 
+        let errorMessage = ''
+
+
+        this.setState({fish_boatError:errorMessage, isTouchedFish_boat:true}, () => {
+            this.props.updateIncome(this.state)
+        })
+    };
+
+
+
+
+
+    handleGoldenChange(e) {
+        this.setState({ golden:e.target.value, isTouchedGolden:true }, () => {
+            this.props.updateIncome(this.state)
+        });
+    }
+    handleGoldenBlur(e) {
+        let value = e.target.value; 
+        let errorMessage = ''
+
+
+        this.setState({goldenError:errorMessage, isTouchedGolden:true}, () => {
+            this.props.updateIncome(this.state)
+        })
+    };
+
+
+
+
+    handleCrop_insChange(e) {
+        this.setState({ crop_ins:e.target.value, isTouchedCrop_ins:true }, () => {
+            this.props.updateIncome(this.state)
+        });
+    }
+    handleCrop_insBlur(e) {
+        let value = e.target.value; 
+        let errorMessage = ''
+
+        this.setState({crop_insError:errorMessage, isTouchedCrop_ins:true}, () => {
+            this.props.updateIncome(this.state)
+        })
+    };
+
+
+
+
+    handleAttorneyChange(e) {
+        this.setState({ attorney:e.target.value, isTouchedAttorney:true }, () => {
+            this.props.updateIncome(this.state)
+        });
+    }
+    handleAttorneyBlur(e) {
+        let value = e.target.value; 
+        let errorMessage = ''
+
+
+        this.setState({attorneyError:errorMessage, isTouchedAttorney:true}, () => {
+            this.props.updateIncome(this.state)
+        })
+    };
+
+
+
 
 
     handleState_tax_withheldChange(e) {
@@ -292,7 +387,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleState_tax_withheldBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -311,7 +405,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleState_tax_idBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -330,7 +423,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleState_incomeBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -350,7 +442,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         });
     }
-
     handleDirect_salesBlur(e) {
         let value = e.target.value; 
         let errorMessage = ''
@@ -360,7 +451,6 @@ class GetIncome extends React.Component {
             this.props.updateIncome(this.state)
         })
     };
-
 
 
 
@@ -381,7 +471,7 @@ class GetIncome extends React.Component {
 
 
             <div align="left">
-                <label>Rent</label>
+                <label>Rents</label>
                 <div className="input-group mb-3" >
                     <div className="input-group-prepend">
                         <span className="input-group-text">$</span>
@@ -523,6 +613,84 @@ class GetIncome extends React.Component {
 
 
 
+            <div align="left">
+                <label>Fishing Boat Proceeds</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="other" 
+                        style={this.state.fish_boatError ? errorStyle : null}
+                        onChange={(e) => this.handleFish_boatChange(e)} 
+                        onBlur={(e) => this.handleFish_boatBlur(e)} 
+                        data-for='fish_boat' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any fishing boat proceeds in this field.", input: "fish_boat"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.fish_boatError}</span>
+            </div>
+
+
+            <div align="left">
+                <label>Excess Golden Parachute Payments</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="other" 
+                        style={this.state.goldenError ? errorStyle : null}
+                        onChange={(e) => this.handleGoldenChange(e)} 
+                        onBlur={(e) => this.handleGoldenBlur(e)} 
+                        data-for='golden' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any excess golden parachute payments in this field.", input: "golden"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.goldenError}</span>
+            </div>
+
+
+
+            <div align="left">
+                <label>Crop Insurance Proceeds</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="other" 
+                        style={this.state.crop_insError ? errorStyle : null}
+                        onChange={(e) => this.handleCrop_insChange(e)} 
+                        onBlur={(e) => this.handleCrop_insBlur(e)} 
+                        data-for='crop_ins' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any crop insurance proceeds in this field.", input: "crop_ins"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.crop_insError}</span>
+            </div>
+
+
+
+
+            <div align="left">
+                <label>Gross Proceeeds Paid to an Attorney</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="other" 
+                        style={this.state.attorneyError ? errorStyle : null}
+                        onChange={(e) => this.handleAttorneyChange(e)} 
+                        onBlur={(e) => this.handleAttorneyBlur(e)} 
+                        data-for='attorney' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter gross proceeds paid to an attorney in this field.", input: "attorney"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.attorneyError}</span>
+            </div>
+
+
+
+
+
 
             <div align="left">
                 <label>State Tax Withheld</label>
@@ -545,7 +713,7 @@ class GetIncome extends React.Component {
 
 
             <div align="left">
-                <label>Payer's State Tax ID</label>
+                <label>Payer's State Tax ID Number</label>
                 <div className="input-group mb-3" >
                     <div className="input-group-prepend">
                         <span className="input-group-text">12-3...</span>

@@ -10,8 +10,9 @@ class Navbar extends Component {
             <div className='container' style={{paddingBottom:'36px', paddingTop:'24px'}}>
             <div className='row'>
             <div className='col-10 offset-1'>
+
                 <div className='row'>
-                <div className='col-4 text-left'>
+                <div className='col-4 col-sm-4 text-left'>
                     <span style={{color:'white', fontSize:'13px'}}><strong>INSTANT 1099</strong></span>
                     <br/>
                     <br/>
@@ -24,7 +25,7 @@ class Navbar extends Component {
                     <span style={{color:'white', fontSize:'12px'}}>© Copyright 2019 - All Rights Reserved  </span>
                 </div>
 
-                <div className='col-4 text-center'>
+                <div className='col-4 col-sm-4 text-center'>
                     <span style={{color:'white', fontSize:'13px'}}><strong>Privacy Policy</strong></span>
                     <br/>
                     <br/>
@@ -34,10 +35,10 @@ class Navbar extends Component {
                     <span style={{color:'white', fontSize:'13px'}}></span>
                     <br/>
                     <br/>
-                   
+                    <span style={{color:'white', fontSize:'13px'}}></span>
                 </div>
 
-                <div className='col-4 text-right'>
+                <div className='col-4 col-sm-3 offset-sm-1 text-right'>
                     <span style={{color:'white', fontSize:'13px'}}><strong>Terms of Use</strong></span>
                     <br/>
                     <br/>
@@ -47,9 +48,10 @@ class Navbar extends Component {
                     <span style={{color:'white', fontSize:'13px'}}></span>
                     <br/>
                     <br/>
-                    <img src={credit} style={{width:'40%'}} alt="..." />
+                    <img src={credit} style={{width:'75%'}} alt="..." />
                 </div>
                 </div>
+
             </div>
             </div>
             </div>

@@ -95,7 +95,7 @@ class GetRecipientInfo extends React.Component {
         let errorMessage = ''
 
         if (!value) {
-            errorMessage = 'Payer name is required.'
+            errorMessage = 'Recipient name is required.'
         } 
 
         this.setState({nameError:errorMessage}, () => {
@@ -116,10 +116,10 @@ class GetRecipientInfo extends React.Component {
         let errorMessage = ''
 
         if(value.length !== 9){
-            errorMessage = 'Payer TIN is not valid.  Must be 9 digits.'
+            errorMessage = 'Recipient TIN is not valid.  Must be 9 digits.'
         }
         if (!value) {
-            errorMessage = 'TIN is required.'
+            errorMessage = 'Recipient TIN is required.'
         } 
 
         this.setState({tinError:errorMessage}, () => {
@@ -139,9 +139,9 @@ class GetRecipientInfo extends React.Component {
         let value = e.target.value; 
         let errorMessage = ''
 
-        // if (!value) {
-        //     errorMessage = 'Payer street address is required.'
-        // } 
+        if (!value) {
+            errorMessage = 'Recipient street address is required.'
+        } 
 
         this.setState({streetError:errorMessage}, () => {
             this.props.updateRecipient(this.state)
@@ -162,7 +162,7 @@ class GetRecipientInfo extends React.Component {
         let errorMessage = ''
 
         // if (!value) {
-        //     errorMessage = 'Payer city is required.'
+        //     errorMessage = 'Recipient city is required.'
         // } 
 
         this.setState({cityError:errorMessage}, () => {
@@ -182,9 +182,9 @@ class GetRecipientInfo extends React.Component {
         let value = e.target.value; 
         let errorMessage = ''
 
-        if (!value) {
-            errorMessage = 'Payer state is required.'
-        } 
+        // if (!value) {
+        //     errorMessage = 'Recipient state is required.'
+        // } 
 
         this.setState({stateError:errorMessage}, () => {
             this.props.updateRecipient(this.state)
@@ -225,10 +225,10 @@ class GetRecipientInfo extends React.Component {
 
 
         if(value.length !== 5){
-            errorMessage = 'Payer zipcode is not valid. Length must be 5 digits.'
+            errorMessage = 'Recipient zipcode is not valid. Length must be 5 digits.'
         }
         if (!value) {
-            errorMessage = 'Payer zipcode is required.'
+            errorMessage = 'Recipient zipcode is required.'
         } 
 
         this.setState({zipcodeError:errorMessage}, () => {
@@ -297,7 +297,7 @@ class GetRecipientInfo extends React.Component {
 
 
             <div align="left">
-                <label>Payer Name *</label>
+                <label>Recipient Name *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="name" 
                         style={this.state.nameError ? errorStyle : null}
@@ -305,14 +305,14 @@ class GetRecipientInfo extends React.Component {
                         onBlur={(e) => this.handleNameBlur(e)} 
                         data-for='name' data-tip data-event='focus' data-event-off='blur'
                     />
-                    {this.renderToolTip( {tip:"Enter the payer's name. Required.", input: "name"} )}
+                    {this.renderToolTip( {tip:"Enter the recipients's name. Required.", input: "name"} )}
                 </div>
                 <span style={{color:'red'}}>{this.state.nameError}</span>
             </div>
 
 
             <div align="left">
-                <label>Federal Tax ID * XX-XXXXXXX</label>
+                <label>Recipient Federal Tax ID * XX-XXXXXXX</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="tin" 
                         style={this.state.tinError ? errorStyle : null}
@@ -320,14 +320,14 @@ class GetRecipientInfo extends React.Component {
                         onBlur={(e) => this.handleTinBlur(e)} 
                         data-for='tin' data-tip data-event='focus' data-event-off='blur'
                     />
-                    {this.renderToolTip( {tip:"Enter the payer's Federal Tax ID.  Required.", input: "tin"} )}
+                    {this.renderToolTip( {tip:"Enter the recipient's Federal Tax ID.  Required.", input: "tin"} )}
                 </div>
                 <span style={{color:'red'}}>{this.state.tinError}</span>
             </div>
 
 
             <div align="left">
-                <label>Payer Address *</label>
+                <label>Recipient Street Address *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="street" 
                         style={this.state.streetError ? errorStyle : null}
@@ -335,7 +335,7 @@ class GetRecipientInfo extends React.Component {
                         onBlur={(e) => this.handleStreetBlur(e)} 
                         data-for='street' data-tip data-event='focus' data-event-off='blur'
                     />
-                    {this.renderToolTip( {tip:"Enter the payer's street address.  Required.", input: "street"} )}
+                    {this.renderToolTip( {tip:"Enter the recipient's street address.  Required.", input: "street"} )}
                 </div>
                 <span style={{color:'red'}}>{this.state.streetError}</span>
             </div>
@@ -351,7 +351,7 @@ class GetRecipientInfo extends React.Component {
                         data-for='city' data-tip data-event='focus' data-event-off='blur'
                         readOnly
                     />
-                    {this.renderToolTip( {tip:"Enter the payer's city.  Required.", input: "city"} )}
+                    {this.renderToolTip( {tip:"Enter the recipient's city.  Required.", input: "city"} )}
                 </div>
                 <span style={{color:'red'}}>{this.state.cityError}</span>
             </div>
@@ -381,7 +381,7 @@ class GetRecipientInfo extends React.Component {
                             onBlur={(e) => this.handleZipcodeBlur(e)} 
                             data-for='zipcode' data-tip data-event='focus' data-event-off='blur'
                         />
-                        {this.renderToolTip( {tip:"Enter the payer's zipcode.  Required.", input: "zipcode"} )}
+                        {this.renderToolTip( {tip:"Enter the recipient's zipcode.  Required.", input: "zipcode"} )}
                     </div>
                     <span style={{color:'red'}}>{this.state.zipcodeError}</span>
                 </div>

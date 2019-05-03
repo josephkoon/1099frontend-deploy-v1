@@ -6,7 +6,7 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className='shadow-bottom'>
+            <div className='nav-shadow-bottom'>
             <div className='container'>
             <div className='row'>
             <div className='col-sm-10 offset-sm-1'>

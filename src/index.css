@@ -25,12 +25,12 @@ h2{
 	font-size:36px;
 }
 h3{
-	font-size:30px;
+	font-size:28px;
 }
 
 
 h4{
-	font-size:24px;
+	font-size:22px;
 }
 h5{
 	font-size:18px;
@@ -51,8 +51,13 @@ label{
 }
 
 
+.gray{
+	color:rgb(80,80,80);
+}
 
-.shadow-bottom{
+
+
+.nav-shadow-bottom{
 	-webkit-box-shadow: 0 4px 8px -8px gray;
 	-moz-box-shadow: 0 4px 8px -8px gray;
 	box-shadow: 0 4px 8px -8px gray;
@@ -60,11 +65,25 @@ label{
 	position: relative;
 }
 
-.gray{
-	color:rgb(80,80,80);
+
+.nav-shadow-bottom{
+	-webkit-box-shadow: 0 4px 8px -8px gray;
+	-moz-box-shadow: 0 4px 8px -8px gray;
+	box-shadow: 0 4px 8px -8px gray;
+	z-index: 1;
+	position: relative;
+}
+
+.price-shadow{
+	-webkit-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.25);
+	box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.25);
 }
 
 
+
+
+/* Landing Preview Card */
 .preview-card{
 	background-color:white !important;
 	padding:12px;
@@ -73,11 +92,14 @@ label{
 }
 
 
+
+/* Form Spacing */
 .form-group{
 	margin-bottom:2px;
 }
 
 
+/* Form Tooltip */
 .tooltip-container{
 	max-width:300px;
 }
@@ -85,8 +107,16 @@ label{
 
 
 
+
+
+/* Multiple Step */
 .rc-steps-item-icon{
 	border-color:lightgray !important;
+	margin-right:4px !important;
+}
+
+.rc-steps-item-title{
+	font-size:100px;
 }
 
 .rc-steps-item-title{

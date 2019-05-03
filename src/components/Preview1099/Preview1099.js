@@ -68,29 +68,29 @@ class Preview1099 extends React.Component {
         // }
 
         // let income = {
-        //     rent:this.props.income.rent,
-        //     royalties:this.props.income.royalties,
-        //     other:this.props.income.other,
+            // rent:this.props.income.rent,
+            // royalties:this.props.income.royalties,
+            // other:this.props.income.other,
 
-        //     federal_tax_withheld:this.props.income.federal_tax_withheld,
-        //     non_employee_comp:this.props.income.non_employee_comp,
+            // federal_tax_withheld:this.props.income.federal_tax_withheld,
+            // non_employee_comp:this.props.income.non_employee_comp,
            
-        //     s409a_deferrals:this.props.income.s409a_deferrals,
-        //     s409a_income:this.props.income.s409a_income,
+            // s409a_deferrals:this.props.income.s409a_deferrals,
+            // s409a_income:this.props.income.s409a_income,
 
-        //     fish_boat:this.props.income.fish_boat,
-        //     medical_payments:this.props.income.medical_payments,
-        //     substitute_payments:this.props.income.substitute_payments,
+            // fish_boat:this.props.income.fish_boat,
+            // medical_payments:this.props.income.medical_payments,
+            // substitute_payments:this.props.income.substitute_payments,
 
-        //     direct_sales:this.props.income.direct_sales,
+            // direct_sales:this.props.income.direct_sales,
             
-        //     crop_ins:null,
-        //     golden:null,
-        //     attorney:null,
+            // crop_ins:null,
+            // golden:null,
+            // attorney:null,
 
-        //     state_tax_withheld:this.props.income.state_tax_withheld,
-        //     state_tax_id:this.props.income.state_tax_id,
-        //     state_income:this.props.income.state_income,
+            // state_tax_withheld:this.props.income.state_tax_withheld,
+            // state_tax_id:this.props.income.state_tax_id,
+            // state_income:this.props.income.state_income,
         // }
 
 

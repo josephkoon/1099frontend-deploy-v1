@@ -50,7 +50,7 @@ class Form extends Component {
 
             	<div className='container' style={{textAlign:'center'}}>
             	<div className='row'>
-            	<div className='col-sm-5 offset-sm-3'>
+            	<div className='col-12 col-sm-5 offset-sm-3'>
                     <Form1099/>
              	</div>
              	</div>

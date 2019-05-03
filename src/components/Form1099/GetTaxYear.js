@@ -31,7 +31,6 @@ const years = [
 class GetTaxYear extends React.Component {
     constructor(){
         super()
-
         this.state = {
             year: "2019",
             isVoid: false,
@@ -60,23 +59,19 @@ class GetTaxYear extends React.Component {
     }
 
 
-  
-
+ 
 
   render() {
     const year = years.map( item => <option key={item.year}> {item.year} </option>)
-
-    console.log(this.props)
-
 
     return (
         <div>
             <div className="form-group" align="left">
                 <label htmlFor="selectTaxYear"><h4>Tax Year</h4></label>
-                <select className="form-control" 
-                onChange={(e) => this.handleYearChange(e)} 
-                >
-                {year}
+                <select className="form-control"  
+                    disabled={true} 
+                    onChange={(e) => this.handleYearChange(e)}>
+                    {year}
                 </select>
             </div>
         <br/>
@@ -98,10 +93,6 @@ class GetTaxYear extends React.Component {
         )
     }
 }
-
-
-
-
 
 
   
