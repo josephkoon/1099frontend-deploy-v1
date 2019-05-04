@@ -18,6 +18,8 @@ class Preview extends Component {
         window.addEventListener('popstate', function (event){
             window.history.pushState(null, document.title,  window.location.href);
         });
+        
+       	window.scrollTo(0, 0)
     }
 
 

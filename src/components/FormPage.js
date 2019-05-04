@@ -20,6 +20,8 @@ class Form extends Component {
         window.addEventListener('popstate', function (event){
             window.history.pushState(null, document.title,  window.location.href);
         });
+        
+        window.scrollTo(0, 0)
     }
 
     
@@ -50,9 +52,11 @@ class Form extends Component {
 
             	<div className='container' style={{textAlign:'center'}}>
             	<div className='row'>
-            	<div className='col-12 col-sm-5 offset-sm-3'>
+                <div className='col'></div>
+            	<div className='col-12 col-sm-5 align-self-center'>
                     <Form1099/>
              	</div>
+                 <div className='col'></div>
              	</div>
              	</div>
 

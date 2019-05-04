@@ -15,6 +15,7 @@
     "react-stripe-elements": "^3.0.0",
     "react-tooltip": "^3.10.0",
     "redux": "^4.0.1",
+    "stripe": "^6.31.2",
     "validator": "^10.11.0"
   },
   "scripts": {

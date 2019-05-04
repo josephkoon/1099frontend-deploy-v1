@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 import Steps, { Step } from "rc-steps";
 import "rc-steps/assets/index.css";
@@ -12,21 +14,19 @@ import blank1099 from '../images/blank1099.png'; // local 1099
 import Navbar from './Navbar';
 import Footer from './Footer';
 
+import {CardElement, CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe} from 'react-stripe-elements';
 import axios from "axios";
-
-import {CardElement, injectStripe} from 'react-stripe-elements';
 
 
 class Checkout extends Component {
-
-
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			payment_message:null
 		};
 
-		this.submitCharge = this.submitCharge.bind(this);
+		this.submit = this.submit.bind(this);
+		this.test = this.test.bind(this);
 	}
 
 
@@ -36,12 +36,13 @@ class Checkout extends Component {
         window.addEventListener('popstate', function (event){
             window.history.pushState(null, document.title,  window.location.href);
         });
+
+        window.scrollTo(0, 0)
     }
 
 
 
     async test(){
-
 		let API = 'https://fast1099.com:10443/key'
 
 		await axios.get(API)
@@ -54,139 +55,99 @@ class Checkout extends Component {
 				// display error in UI
 				console.log(response.error);
 			});
-
     }
 
 
 
 
+	async submit(e) {
+		//DOCS FOR STRIPE
+		//https://stripe.com/docs/recipes/elements-react
 
-	async submitCharge(ev) {
-		let bodyFormData = new FormData();
-		let charge_id = '';
-		let response_status = '';
-
-
-		//CREATES TOKEN
+		//Get Token
 		let {token} = await this.props.stripe.createToken({
-			name: "Fred Weasley", 
-			address_line1: "123 Main", 
-			address_city: "San Francisco",
-			address_zip: "94111",
-			address_state: "CA",
-			address_country: "USA",
-			// phone: "9495551212"			-- this doesn't go to stripe
+			name: "TEST CHARGE", 
+			// address_line1: "123 Main", 
+			// address_city: "San Francisco",
+			// address_zip: "94111",
+			// address_state: "CA",
+			// address_country: "USA",
 		});
 
+
 		if(!token){
-			return "no token";
+			this.setState({payment_message:'Token or Network Error'})
 		}
 
 
-		//Form Data
-		const tax_year = '2009'
-		const payer = 'Joe Test'
-		const recipient = 'Joel Test'
-		const income = '239023'
-		const email = 'test email@gmail.com'
+		if(token){
+			console.log(token)
+
+			let bodyFormData = new FormData();
+
+		    const tax_year = JSON.stringify(this.props.taxYear);
+		    const payer = JSON.stringify(this.props.payer);
+		    const recipient = JSON.stringify(this.props.recipient);
+		    const income = JSON.stringify(this.props.income);
+		    const email = JSON.stringify(this.props.email);
+
+		    bodyFormData.append('id', token.id);
+		    bodyFormData.append('amount', parseInt(3.99*100) );
+		    bodyFormData.append('description', 'Online 1099 form' );
+
+		    bodyFormData.append('phone', this.props.payer.phone);
+
+		    bodyFormData.append('tax_year', tax_year );
+		    bodyFormData.append('payer', payer );
+		    bodyFormData.append('recipient', recipient );
+		    bodyFormData.append('income', income );
+		    bodyFormData.append('email', email );
 
 
-		const amount = 5.95 * 100
-		bodyFormData.append('id', token.id );
-		this.setState({tokenId:token.id});
+			let API = 'https://fast1099.com:10443/charge'
+	      	let headers = {
+	            'Content-Type': 'multipart/form-data'
+	        }
 
 
-		//DATA FROM PROPS
-		// const tax_year = JSON.stringify(store.getState().taxYear);
-		// const payer = JSON.stringify(store.getState().payer);
-		// const recipient = JSON.stringify(store.getState().recipient);
-		// const income = JSON.stringify(store.getState().income);
-		// const email = JSON.stringify(store.getState().email);
+	        let response_status
+	        let charge_id
+			await axios.post(API, bodyFormData, headers)
+				.then(function (response) {
+					console.log(response)
 
-		//BILLING INFO
-		// billing_info: {
-		// 	complete: false,
-		// 	purchase_amt: 5.95,
-		// 	//statement_descriptor: '1099s R Us, Inc',
-		// 	description: 'Online 1099 form',  
-		// 	name: 'Tom Customer',
-		// 	email: 'joel.the.keeper@gmail.com',
-		// 	phone: ''
-		// }
-
-		//ADD FORM DATA
-		// bodyFormData.append('amount', amount );
-		// bodyFormData.append('description', this.state.billing_info.description );
-		// bodyFormData.append('phone', store.getState().payer.phone );
-		// bodyFormData.append('tax_year', tax_year );
-		// bodyFormData.append('payer', payer );
-		// bodyFormData.append('recipient', recipient );
-		// bodyFormData.append('income', income );
-		// bodyFormData.append('email', email );
+					//handle success
+					console.log(response.status);
+					if (response.status === 200) {
+						response_status = response.status;
+						charge_id = response.data.response.id;
+					}
+				})	
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					this.setState({payment_message: 'Payment Error'});
+				}.bind(this));
 
 
+			//LOG RESPONSE
+			if (response_status == 200) {
+				this.setState({payment_message: 'Payment Success'});
+				console.log("success");
+				
+				this.props.history.push('/thanks')
+			}
 
-		let API = 'https://fast1099.com:9000/charge'
-        var headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            "Access-Control-Allow-Origin": "*" 
-        }
-
-		await axios.post(API, bodyFormData, headers)
-			.then(function (response) {
-				//handle success
-				console.log(response.status);
-				if (response.status === 200) {
-					response_status = response.status;
-					charge_id = response.data.response.id;
-				}
-				console.log(response);
-			})	
-			.catch(function (response) {
-				//handle error
-				// display error in UI
-				console.log(response);
-			});
-
-
-		//LOG RESPONSE
-		if (response_status === 200) {
-			this.setState({charge_id: charge_id});
-			console.log("success");
 		}
+	}
 
 
-	};
+
 
 
 
 
 	render() {
-
-		let customForm = (
-			<div>
-			<div class="form-group">
-				<label>Email address</label>
-				<input class="form-control" placeholder="name@example.com" />
-			</div>
-
-			<div class="form-group">
-				<label>Card Number</label>
-				<input class="form-control" placeholder="9999-9999-9999-9999" />
-			</div>
-
-			<div class="form-row">
-				<div class="col">
-					<label>MM / YY</label>
-					<input type="text" class="form-control" placeholder="First name" />
-				</div>
-				<div class="col">
-					<label>CVC</label>
-					<input type="text" class="form-control" placeholder="Last name" />
-				</div>
-			</div>
-			</div>
-		);
 
 
 	    return (
@@ -215,14 +176,12 @@ class Checkout extends Component {
 		        <div style={{backgroundColor:'rgb(225,230,235)', minHeight:'100%'}}>
 		        	<br/>
 		        	<br/>
-
 		        	<div className='container'>
 		        	<div className='row'>
 
 		       
 			        	<div className='col-sm-5 offset-sm-1'>
 			        		<h5><strong>Payment Details</strong></h5>
-			        		<br/>
 
 			        		
 			        		<hr/>
@@ -231,22 +190,40 @@ class Checkout extends Component {
 			        		<hr/>
 			        		<br/>
 
-			        		{customForm}
+					        <div className='row'>
+					        	<div className='col-12'>
+					        		<CardNumberElement className='form-control' />
+					        		<br/>
+					        	</div>
+					        	
 
-							<br/>
-							<br/>
+					        	<div className='col-6'>
+					        		<CardExpiryElement className='form-control'/>
+					        	</div>
+					        	<div className='col-6'>
+					        		<CardCVCElement className='form-control'/>
+					        	</div>
+
+								
+								<div className='col-12 text-center'>
+									<br/>
+									<h6 style={{color:'blue'}}>{this.state.payment_message}</h6>
+									<br/>
+								</div>
+
+					        </div>
 
 
-			                <Link to='/thanks'>
-			                    <a style={{width:'100%'}} className="btn btn-primary btn-lg" href="#" role="button">
-			                    <strong>Complete Payment</strong>
-			                    </a>
-			                </Link>
+
+		                    <button onClick={this.submit} style={{width:'100%'}} className="btn btn-primary btn-lg" role="button">
+		                   		<strong>Complete Payment</strong>
+		                    </button>
+			                
 							<br/>
 							<br/>
 
 							<div style={{textAlign:'center'}}>
-								<p><i style={{display:'inline-block', paddingRight:'8px'}} class="fas fa-lock"></i>Secure SSL Checkout</p>
+								<p><i style={{display:'inline-block', paddingRight:'8px'}} className="fas fa-lock"></i>Secure SSL Checkout</p>
 							</div>
 			        	</div>
 
@@ -291,6 +268,27 @@ class Checkout extends Component {
 	    );
 	}
 }
+
+
+
+
+function mapStateToProps(state) {
+    return{
+        taxYear:state.taxYear,
+        payer:state.payer,
+        recipient:state.recipient,
+        income:state.income,
+        email:state.email,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+
+    }, dispatch )
+}
+
+Checkout = connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
 export default injectStripe(Checkout);
 

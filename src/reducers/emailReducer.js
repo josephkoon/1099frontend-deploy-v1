@@ -2,7 +2,7 @@ import { UPDATE_EMAIL } from "../actions/action-types";
 
 
 const emailState = {
-
+	email: '',
 }
   
 

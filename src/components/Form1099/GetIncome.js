@@ -14,6 +14,8 @@ class GetIncome extends React.Component {
         super(props);
         this.state = {
 
+            showAdditional:false,
+
             rent: '',
             rentError:'',
             isTouchedRent: false,
@@ -212,6 +214,10 @@ class GetIncome extends React.Component {
     }
 
 
+
+    toggleAdditional(){
+        this.setState({showAdditional:!this.state.showAdditional})
+    }
 
 
     handleRentChange(e) {
@@ -694,134 +700,6 @@ class GetIncome extends React.Component {
 
 
 
-            <div align="left">
-                <label>Medical and Healthcare Payments</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="medical_payments" 
-                        ref='medical_payments'
-                        style={this.state.medical_paymentsError ? errorStyle : null}
-                        onChange={(e) => this.handleMedical_paymentsChange(e)} 
-                        onBlur={(e) => this.handleMedical_paymentsBlur(e)} 
-                        data-for='medical_payments' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter any medical and healthcare payments in this field.", input: "medical_payments"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.medical_paymentsError}</span>
-            </div>
-
-
-
-
-            <div align="left">
-                <label>Substitute Payments in lieu of Dividends or Interest</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="substitute_payments" 
-                        ref='substitute_payments'
-                        style={this.state.substitute_paymentsError ? errorStyle : null}
-                        onChange={(e) => this.handleSubstitute_paymentsChange(e)} 
-                        onBlur={(e) => this.handleSubstitute_paymentsBlur(e)} 
-                        data-for='substitute_payments' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter any substitute payments in lieu of dividends or interest in this field.", input: "medical_payments"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.substitute_paymentsError}</span>
-            </div>
-
-
-
- 
-
-
-
-
-            <div align="left">
-                <label>Fishing Boat Proceeds</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="fish_boat" 
-                        ref='fish_boat'
-                        style={this.state.fish_boatError ? errorStyle : null}
-                        onChange={(e) => this.handleFish_boatChange(e)} 
-                        onBlur={(e) => this.handleFish_boatBlur(e)} 
-                        data-for='fish_boat' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter any fishing boat proceeds in this field.", input: "fish_boat"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.fish_boatError}</span>
-            </div>
-
-
-            <div align="left">
-                <label>Excess Golden Parachute Payments</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="golden" 
-                        ref='golden'
-                        style={this.state.goldenError ? errorStyle : null}
-                        onChange={(e) => this.handleGoldenChange(e)} 
-                        onBlur={(e) => this.handleGoldenBlur(e)} 
-                        data-for='golden' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter any excess golden parachute payments in this field.", input: "golden"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.goldenError}</span>
-            </div>
-
-
-
-            <div align="left">
-                <label>Crop Insurance Proceeds</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="crop_ins" 
-                        ref='crop_ins'
-                        style={this.state.crop_insError ? errorStyle : null}
-                        onChange={(e) => this.handleCrop_insChange(e)} 
-                        onBlur={(e) => this.handleCrop_insBlur(e)} 
-                        data-for='crop_ins' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter any crop insurance proceeds in this field.", input: "crop_ins"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.crop_insError}</span>
-            </div>
-
-
-
-
-            <div align="left">
-                <label>Gross Proceeeds Paid to an Attorney</label>
-                <div className="input-group mb-3" >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">$</span>
-                    </div>
-                    <input type="text" className="form-control" id="attorney" 
-                        ref='attorney'
-                        style={this.state.attorneyError ? errorStyle : null}
-                        onChange={(e) => this.handleAttorneyChange(e)} 
-                        onBlur={(e) => this.handleAttorneyBlur(e)} 
-                        data-for='attorney' data-tip data-event='focus' data-event-off='blur'
-                    />
-                    {this.renderToolTip( {tip:"Enter gross proceeds paid to an attorney in this field.", input: "attorney"} )}
-                </div>
-                <span style={{color:'red'}}>{this.state.attorneyError}</span>
-            </div>
-
-
-
-
-
 
             <div align="left">
                 <label>State Tax Withheld</label>
@@ -906,6 +784,148 @@ class GetIncome extends React.Component {
                 </div>
                 <span style={{color:'red'}}>{this.state.direct_salesError}</span>
             </div>
+
+
+
+
+            <br/>
+            <div style={{cursor:'pointer'}} onClick={this.toggleAdditional.bind(this)}>
+            <strong>
+                <i style={{paddingRight:'4px'}} className={this.state.showAdditional ? 'fas fa-angle-up' : 'fas fa-angle-down'}></i>
+                {this.state.showAdditional && 'Hide Additional Income Information'}
+                {!this.state.showAdditional && 'Show Additional Income Information'}
+            </strong>
+            </div>
+            <br/>
+            
+
+            <div style={this.state.showAdditional ? {} : {display:'none'} }>
+
+
+            <div align="left">
+                <label>Medical and Healthcare Payments</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="medical_payments" 
+                        ref='medical_payments'
+                        style={this.state.medical_paymentsError ? errorStyle : null}
+                        onChange={(e) => this.handleMedical_paymentsChange(e)} 
+                        onBlur={(e) => this.handleMedical_paymentsBlur(e)} 
+                        data-for='medical_payments' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any medical and healthcare payments in this field.", input: "medical_payments"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.medical_paymentsError}</span>
+            </div>
+
+
+
+
+            <div align="left">
+                <label>Substitute Payments in lieu of Dividends or Interest</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="substitute_payments" 
+                        ref='substitute_payments'
+                        style={this.state.substitute_paymentsError ? errorStyle : null}
+                        onChange={(e) => this.handleSubstitute_paymentsChange(e)} 
+                        onBlur={(e) => this.handleSubstitute_paymentsBlur(e)} 
+                        data-for='substitute_payments' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any substitute payments in lieu of dividends or interest in this field.", input: "medical_payments"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.substitute_paymentsError}</span>
+            </div>
+
+
+            <div align="left">
+                <label>Fishing Boat Proceeds</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="fish_boat" 
+                        ref='fish_boat'
+                        style={this.state.fish_boatError ? errorStyle : null}
+                        onChange={(e) => this.handleFish_boatChange(e)} 
+                        onBlur={(e) => this.handleFish_boatBlur(e)} 
+                        data-for='fish_boat' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any fishing boat proceeds in this field.", input: "fish_boat"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.fish_boatError}</span>
+            </div>
+
+
+
+            <div align="left">
+                <label>Excess Golden Parachute Payments</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="golden" 
+                        ref='golden'
+                        style={this.state.goldenError ? errorStyle : null}
+                        onChange={(e) => this.handleGoldenChange(e)} 
+                        onBlur={(e) => this.handleGoldenBlur(e)} 
+                        data-for='golden' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any excess golden parachute payments in this field.", input: "golden"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.goldenError}</span>
+            </div>
+
+
+
+            <div align="left">
+                <label>Crop Insurance Proceeds</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="crop_ins" 
+                        ref='crop_ins'
+                        style={this.state.crop_insError ? errorStyle : null}
+                        onChange={(e) => this.handleCrop_insChange(e)} 
+                        onBlur={(e) => this.handleCrop_insBlur(e)} 
+                        data-for='crop_ins' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any crop insurance proceeds in this field.", input: "crop_ins"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.crop_insError}</span>
+            </div>
+
+
+
+            <div align="left">
+                <label>Gross Proceeeds Paid to an Attorney</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="attorney" 
+                        ref='attorney'
+                        style={this.state.attorneyError ? errorStyle : null}
+                        onChange={(e) => this.handleAttorneyChange(e)} 
+                        onBlur={(e) => this.handleAttorneyBlur(e)} 
+                        data-for='attorney' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter gross proceeds paid to an attorney in this field.", input: "attorney"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.attorneyError}</span>
+            </div>
+
+
+            </div>
+         
+
+
+
 
 
 

@@ -16,6 +16,13 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 class Landing extends Component {
+
+    //Block Browser Back
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+
     render() {
 
         let headerImage = {backgroundImage:`url(${jumbotron})`, backgroundSize:'cover', borderRadius:'0px', marginBottom:'0px'}
