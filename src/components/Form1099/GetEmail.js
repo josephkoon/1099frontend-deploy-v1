@@ -32,15 +32,26 @@ class GetEmail extends React.Component {
     };
 
 
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
+
+    validateAllEmail(){
+        this.handleEmailBlur()
+    }
+
+
     handleEmailChange(e) {
         this.setState({ email:e.target.value, isTouchedEmail:true }, () => {
             this.props.updateEmail(this.state)
         });
     }
-
-
     handleEmailBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.email.value;
         let errorMessage = ''
 
         if(!isEmail(value)) {
@@ -64,7 +75,8 @@ class GetEmail extends React.Component {
             <div align="left">
                 <label>Email address *</label>
                 <div className="form-group" align="left" >
-                    <input type="email" className="form-control" id="email" 
+                    <input type="email" className="form-control" id="email"
+                        ref='email' 
                         style={this.state.emailError ? errorStyle : null}
                         onChange={(e) => this.handleEmailChange(e)} 
                         onBlur={(e) => this.handleEmailBlur(e)} 

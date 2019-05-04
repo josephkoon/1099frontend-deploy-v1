@@ -82,6 +82,32 @@ class GetRecipientInfo extends React.Component {
         )
     };
     
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
+
+    validateAllRecipient(){
+        this.handleNameBlur()
+       
+        this.handleTinBlur()
+        
+        this.handleZipcodeBlur()
+       
+        this.handleStreetBlur()
+       
+        this.handleCityBlur()
+     
+        this.handleStateBlur()
+  
+        this.handleAccount_nbrBlur()
+
+        this.handleFATCABlur()
+    }
+
 
 
     handleNameChange(e) {
@@ -91,7 +117,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleNameBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.name.value
         let errorMessage = ''
 
         if (!value) {
@@ -112,7 +138,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleTinBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.tin.value
         let errorMessage = ''
 
         if(value.length !== 9){
@@ -136,7 +162,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleStreetBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.street.value
         let errorMessage = ''
 
         if (!value) {
@@ -158,7 +184,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleCityBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.city.value
         let errorMessage = ''
 
         // if (!value) {
@@ -179,7 +205,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleStateBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.state.value
         let errorMessage = ''
 
         // if (!value) {
@@ -206,8 +232,8 @@ class GetRecipientInfo extends React.Component {
             fetch(zipURL)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('cityInput').value = data.city
-                document.getElementById('stateInput').value = data.state
+                document.getElementById('city2').value = data.city
+                document.getElementById('state2').value = data.state
                 this.setState({ 
                     city: data.city || '',
                     state: data.state || '',
@@ -220,7 +246,7 @@ class GetRecipientInfo extends React.Component {
     }
     
     handleZipcodeBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.zipcode.value
         let errorMessage = ''
 
 
@@ -246,7 +272,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleAccount_nbrBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.account_nbr.value
         let errorMessage = ''
 
         if (this.state.FATCA  && !value) {
@@ -269,7 +295,7 @@ class GetRecipientInfo extends React.Component {
     }
 
     handleFATCABlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.FATCA.value
         let errorMessage = ''
 
 
@@ -300,6 +326,7 @@ class GetRecipientInfo extends React.Component {
                 <label>Recipient Name *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="name" 
+                        ref='name'
                         style={this.state.nameError ? errorStyle : null}
                         onChange={(e) => this.handleNameChange(e)} 
                         onBlur={(e) => this.handleNameBlur(e)} 
@@ -314,7 +341,8 @@ class GetRecipientInfo extends React.Component {
             <div align="left">
                 <label>Recipient Federal Tax ID * XX-XXXXXXX</label>
                 <div className="form-group" align="left" >
-                    <input type="text" className="form-control" id="tin" 
+                    <input type="text" className="form-control" id="tin"
+                        ref='tin' 
                         style={this.state.tinError ? errorStyle : null}
                         onChange={(e) => this.handleTinChange(e)} 
                         onBlur={(e) => this.handleTinBlur(e)} 
@@ -330,6 +358,7 @@ class GetRecipientInfo extends React.Component {
                 <label>Recipient Street Address *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="street" 
+                        ref='street'
                         style={this.state.streetError ? errorStyle : null}
                         onChange={(e) => this.handleStreetChange(e)} 
                         onBlur={(e) => this.handleStreetBlur(e)} 
@@ -344,7 +373,8 @@ class GetRecipientInfo extends React.Component {
             <div align="left">
                 <label>City *</label>
                 <div className="form-group" align="left" >
-                    <input type="text" className="form-control" id="cityInput" 
+                    <input type="text" className="form-control" id="city2"
+                        ref='city' 
                         style={this.state.cityError ? errorStyle : null}
                         onChange={(e) => this.handleCityChange(e)} 
                         onBlur={(e) => this.handleCityBlur(e)} 
@@ -361,7 +391,8 @@ class GetRecipientInfo extends React.Component {
                 <div class="col">
                     <label>State *</label>
                     <div className="input-group" align="left" >
-                        <input type="text" className="form-control" id="stateInput" 
+                        <input type="text" className="form-control" id="state2" 
+                            ref='state'
                             style={this.state.stateError ? errorStyle : null}
                             onChange={(e) => this.handleStateChange(e)} 
                             onBlur={(e) => this.handleStateBlur(e)} 
@@ -376,6 +407,7 @@ class GetRecipientInfo extends React.Component {
                     <label>Zipcode *</label>
                     <div className="input-group" align="left" >
                         <input type="text" className="form-control" id="zipcode" 
+                            ref='zipcode'
                             style={this.state.zipcodeError ? errorStyle : null}
                             onChange={(e) => this.handleZipcodeChange(e)} 
                             onBlur={(e) => this.handleZipcodeBlur(e)} 
@@ -397,6 +429,7 @@ class GetRecipientInfo extends React.Component {
                 <label>Account Number</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="account_nbr" 
+                        ref='account_nbr'
                         style={this.state.account_nbrError ? errorStyle : null}
                         onChange={(e) => this.handleAccount_nbrChange(e)} 
                         onBlur={(e) => this.handleAccount_nbrBlur(e)} 
@@ -414,6 +447,7 @@ class GetRecipientInfo extends React.Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text">
                             <input type="checkbox"   
+                                ref='FATCA'
                                 checked={this.state.FATCA}
                                 onChange={(e) => this.handleFATCAChange(e)} 
                                 onBlur={(e) => this.handleFATCABlur(e)} 

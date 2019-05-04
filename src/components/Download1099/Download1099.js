@@ -55,131 +55,131 @@ class Download1099 extends React.Component {
         //NOT USED
         // email.email
 
-        // let taxYear = {
-        //     year:'2019',
-        //     isVoid:this.props.taxYear.isVoid,
-        //     isCorrected:this.props.taxYear.isCorrected,
-        // }
-
-        // let payer = {
-        //     name:this.props.payer.name,
-
-        //     street:this.props.payer.street,
-        //     city:this.props.payer.city,
-        //     state:this.props.payer.state,
-        //     country:'USA',
-        //     zipcode:this.props.payer.zipcode,
-        //     phone:this.props.payer.phone,
-
-        //     tin:this.props.payer.tin,
-        // }
-
-        // let recipient = {
-        //     name:this.props.recipient.name,
-
-        //     street:this.props.recipient.street,
-        //     city:this.props.recipient.city,
-        //     state:this.props.recipient.state,
-        //     country:'USA',
-        //     zipcode:this.props.recipient.zipcode,
-
-        //     tin:this.props.recipient.tin,
-
-        //     account_nbr:this.props.recipient.account_nbr,
-        //     FATCA:this.props.recipient.FATCA,
-        // }
-
-        // let income = {
-        //     rent:this.props.income.rent,
-        //     royalties:this.props.income.royalties,
-        //     other:this.props.income.other,
-
-        //     federal_tax_withheld:this.props.income.federal_tax_withheld,
-        //     non_employee_comp:this.props.income.non_employee_comp,
-           
-        //     s409a_deferrals:this.props.income.s409a_deferrals,
-        //     s409a_income:this.props.income.s409a_income,
-
-        //     fish_boat:this.props.income.fish_boat,
-        //     medical_payments:this.props.income.medical_payments,
-        //     substitute_payments:this.props.income.substitute_payments,
-
-        //     direct_sales:this.props.income.direct_sales,
-            
-        //     crop_ins:null,
-        //     golden:null,
-        //     attorney:null,
-
-        //     state_tax_withheld:this.props.income.state_tax_withheld,
-        //     state_tax_id:this.props.income.state_tax_id,
-        //     state_income:this.props.income.state_income,
-        // }
-
-
-
-
-
         let taxYear = {
             year:'2019',
-            isVoid:'on',
-            isCorrected:'on'
+            isVoid:this.props.taxYear.isVoid,
+            isCorrected:this.props.taxYear.isCorrected,
         }
 
         let payer = {
-            name:'Fake Name',
+            name:this.props.payer.name,
 
-            street:'123 Fake St.',
-            city:'Irvine',
-            state:'CA',
+            street:this.props.payer.street,
+            city:this.props.payer.city,
+            state:this.props.payer.state,
             country:'USA',
-            zipcode:'92618',
-            phone:'7032033084',
+            zipcode:this.props.payer.zipcode,
+            phone:this.props.payer.phone,
 
-            tin:'123901290',
+            tin:this.props.payer.tin,
         }
 
         let recipient = {
-            name:'Fake Name',
+            name:this.props.recipient.name,
 
-            street:'123 Fake Lane',
-            city:'Irvine',
-            state:'CA',
+            street:this.props.recipient.street,
+            city:this.props.recipient.city,
+            state:this.props.recipient.state,
             country:'USA',
-            zipcode:'92618',
+            zipcode:this.props.recipient.zipcode,
 
-            tin:'12391023990123',
+            tin:this.props.recipient.tin,
 
-            account_nbr:'1239012039123',
-            FATCA:'on',
+            account_nbr:this.props.recipient.account_nbr,
+            FATCA:this.props.recipient.FATCA,
         }
 
         let income = {
-            rent:'12391203912',
-            royalties:'1293190239102',
-            other:'192201292',
+            rent:this.props.income.rent,
+            royalties:this.props.income.royalties,
+            other:this.props.income.other,
 
-            federal_tax_withheld:'129302',
-
-            non_employee_comp:'90120399123',
-            substitute_payments:'12931290',
+            federal_tax_withheld:this.props.income.federal_tax_withheld,
+            non_employee_comp:this.props.income.non_employee_comp,
            
-            s409a_deferrals:'1923902',
-            s409a_income:'4993034',
+            s409a_deferrals:this.props.income.s409a_deferrals,
+            s409a_income:this.props.income.s409a_income,
 
-            fish_boat:'12391209312',
-            medical_payments:'129012',
-            
+            fish_boat:this.props.income.fish_boat,
+            medical_payments:this.props.income.medical_payments,
+            substitute_payments:this.props.income.substitute_payments,
 
-            direct_sales:'on',
-            golden:'123990123',
-            attorney:'120910',
+            direct_sales:this.props.income.direct_sales,
             
-            crop_ins:'1239',
-            
-            state_tax_withheld:'1293091230912',
-            state_tax_id:'12901290',
-            state_income:'1299209290',
+            crop_ins:this.props.income.crop_ins,
+            golden:this.props.income.golden,
+            attorney:this.props.income.attorney,
+
+            state_tax_withheld:this.props.income.state_tax_withheld,
+            state_tax_id:this.props.income.state_tax_id,
+            state_income:this.props.income.state_income,
         }
+
+
+
+
+
+        // let taxYear = {
+        //     year:'2019',
+        //     isVoid:'on',
+        //     isCorrected:'on'
+        // }
+
+        // let payer = {
+        //     name:'Fake Name',
+
+        //     street:'123 Fake St.',
+        //     city:'Irvine',
+        //     state:'CA',
+        //     country:'USA',
+        //     zipcode:'92618',
+        //     phone:'7032033084',
+
+        //     tin:'123901290',
+        // }
+
+        // let recipient = {
+        //     name:'Fake Name',
+
+        //     street:'123 Fake Lane',
+        //     city:'Irvine',
+        //     state:'CA',
+        //     country:'USA',
+        //     zipcode:'92618',
+
+        //     tin:'12391023990123',
+
+        //     account_nbr:'1239012039123',
+        //     FATCA:'on',
+        // }
+
+        // let income = {
+        //     rent:'12391203912',
+        //     royalties:'1293190239102',
+        //     other:'192201292',
+
+        //     federal_tax_withheld:'129302',
+
+        //     non_employee_comp:'90120399123',
+        //     substitute_payments:'12931290',
+           
+        //     s409a_deferrals:'1923902',
+        //     s409a_income:'4993034',
+
+        //     fish_boat:'12391209312',
+        //     medical_payments:'129012',
+            
+
+        //     direct_sales:'on',
+        //     golden:'123990123',
+        //     attorney:'120910',
+            
+        //     crop_ins:'1239',
+            
+        //     state_tax_withheld:'1293091230912',
+        //     state_tax_id:'12901290',
+        //     state_income:'1299209290',
+        // }
 
 
         return (

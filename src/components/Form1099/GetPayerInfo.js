@@ -74,6 +74,30 @@ class GetPayerInfo extends React.Component {
         )
     };
     
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+    
+
+    validateAllPayer(){
+        this.handleNameBlur()
+     
+        this.handleTinBlur()
+        
+        this.handleZipcodeBlur()
+      
+        this.handleStreetBlur()
+       
+        this.handleCityBlur()
+      
+        this.handleStateBlur()
+      
+        this.handlePhoneBlur()
+     
+    }
 
 
     handleNameChange(e) {
@@ -83,7 +107,7 @@ class GetPayerInfo extends React.Component {
     }
 
     handleNameBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.name.value
         let errorMessage = ''
 
         if (!value) {
@@ -102,9 +126,8 @@ class GetPayerInfo extends React.Component {
             this.props.updatePayer(this.state)
         });
     }
-
     handleTinBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.tin.value
         let errorMessage = ''
 
         if(value.length !== 9){
@@ -126,9 +149,8 @@ class GetPayerInfo extends React.Component {
             this.props.updatePayer(this.state)
         });
     }
-
     handleStreetBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.street.value
         let errorMessage = ''
 
         if (!value) {
@@ -150,7 +172,7 @@ class GetPayerInfo extends React.Component {
     }
 
     handleCityBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.city.value
         let errorMessage = ''
 
         // if (!value) {
@@ -171,7 +193,7 @@ class GetPayerInfo extends React.Component {
     }
 
     handleStateBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.state.value
         let errorMessage = ''
 
         // if (!value) {
@@ -198,8 +220,8 @@ class GetPayerInfo extends React.Component {
             fetch(zipURL)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('cityInput').value = data.city
-                document.getElementById('stateInput').value = data.state
+                document.getElementById('city').value = data.city
+                document.getElementById('state').value = data.state
                 this.setState({ 
                     city: data.city || '',
                     state: data.state || '',
@@ -212,7 +234,7 @@ class GetPayerInfo extends React.Component {
     }
 
     handleZipcodeBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.zipcode.value 
         let errorMessage = ''
 
 
@@ -237,7 +259,7 @@ class GetPayerInfo extends React.Component {
     }
 
     handlePhoneBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.phone.value
         let errorMessage = ''
 
         if(!isPhone(value)){
@@ -273,6 +295,7 @@ render() {
                 <label>Payer Name *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="name" 
+                        ref='name'
                         style={this.state.nameError ? errorStyle : null}
                         onChange={(e) => this.handleNameChange(e)} 
                         onBlur={(e) => this.handleNameBlur(e)} 
@@ -287,7 +310,8 @@ render() {
             <div align="left">
                 <label>Payer Federal Tax ID * XX-XXXXXXX</label>
                 <div className="form-group" align="left" >
-                    <input type="text" className="form-control" id="tin" 
+                    <input type="text" className="form-control" id="tin"
+                        ref='tin' 
                         style={this.state.tinError ? errorStyle : null}
                         onChange={(e) => this.handleTinChange(e)} 
                         onBlur={(e) => this.handleTinBlur(e)} 
@@ -303,6 +327,7 @@ render() {
                 <label>Payer Street Address *</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="street" 
+                        ref='street'
                         style={this.state.streetError ? errorStyle : null}
                         onChange={(e) => this.handleStreetChange(e)} 
                         onBlur={(e) => this.handleStreetBlur(e)} 
@@ -317,7 +342,8 @@ render() {
             <div align="left">
                 <label>City *</label>
                 <div className="form-group" align="left" >
-                    <input type="text" className="form-control" id="cityInput" 
+                    <input type="text" className="form-control" id="city" 
+                        ref='city'
                         style={this.state.cityError ? errorStyle : null}
                         onChange={(e) => this.handleCityChange(e)} 
                         onBlur={(e) => this.handleCityBlur(e)} 
@@ -334,7 +360,8 @@ render() {
                 <div class="col">
                     <label>State *</label>
                     <div className="input-group" align="left" >
-                        <input type="text" className="form-control" id="stateInput" 
+                        <input type="text" className="form-control" id="state" 
+                            ref='state'
                             style={this.state.stateError ? errorStyle : null}
                             onChange={(e) => this.handleStateChange(e)} 
                             onBlur={(e) => this.handleStateBlur(e)} 
@@ -349,6 +376,7 @@ render() {
                     <label>Zipcode *</label>
                     <div className="input-group" align="left" >
                         <input type="text" className="form-control" id="zipcode" 
+                            ref='zipcode'
                             style={this.state.zipcodeError ? errorStyle : null}
                             onChange={(e) => this.handleZipcodeChange(e)} 
                             onBlur={(e) => this.handleZipcodeBlur(e)} 
@@ -365,6 +393,7 @@ render() {
                 <label>Payer Phone Number * XXX-XXX-XXXX</label>
                 <div className="form-group" align="left" >
                     <input type="text" className="form-control" id="phone" 
+                        ref='phone'
                         style={this.state.phoneError ? errorStyle : null}
                         onChange={(e) => this.handlePhoneChange(e)} 
                         onBlur={(e) => this.handlePhoneBlur(e)} 

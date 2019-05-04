@@ -5,32 +5,25 @@ import Steps, { Step } from "rc-steps";
 import "rc-steps/assets/index.css";
 import "rc-steps/assets/iconfont.css";
 
+
 import credit from '../images/credit.png'; // local 1099
 import blank1099 from '../images/blank1099.png'; // local 1099
 
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-import store from '../store';
 import axios from "axios";
+
+import {CardElement, injectStripe} from 'react-stripe-elements';
 
 
 class Checkout extends Component {
 
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			tokenId: '',
-			charge_id: '',
-			billing_info: {
-				complete: false,
-				purchase_amt: 5.95,
-				//statement_descriptor: '1099s R Us, Inc',
-				description: 'Online 1099 form',  
-				name: 'Tom Customer',
-				email: 'joel.the.keeper@gmail.com',
-				phone: ''
-			}
+
 		};
 
 		this.submitCharge = this.submitCharge.bind(this);
@@ -47,13 +40,35 @@ class Checkout extends Component {
 
 
 
+    async test(){
+
+		let API = 'https://fast1099.com:10443/key'
+
+		await axios.get(API)
+			.then(function (response) {
+				//handle success
+				console.log(response);
+			})	
+			.catch(function (response) {
+				//handle error
+				// display error in UI
+				console.log(response.error);
+			});
+
+    }
+
+
+
+
+
 	async submitCharge(ev) {
 		let bodyFormData = new FormData();
 		let charge_id = '';
 		let response_status = '';
 
+
+		//CREATES TOKEN
 		let {token} = await this.props.stripe.createToken({
-			// these values need to come from the UI
 			name: "Fred Weasley", 
 			address_line1: "123 Main", 
 			address_city: "San Francisco",
@@ -63,66 +78,117 @@ class Checkout extends Component {
 			// phone: "9495551212"			-- this doesn't go to stripe
 		});
 
-		if (!token) {
+		if(!token){
 			return "no token";
 		}
 
-		// stringify json objects before sending to server so server can read them
-		const tax_year = JSON.stringify(store.getState().taxYear);
-		const payer = JSON.stringify(store.getState().payer);
-		const recipient = JSON.stringify(store.getState().recipient);
-		const income = JSON.stringify(store.getState().income);
-		const email = JSON.stringify(store.getState().email);
-		// const form_data = {
-		//   payer: {},
-		//   recipient: {},
-		//   email: {}
-		// };
+
+		//Form Data
+		const tax_year = '2009'
+		const payer = 'Joe Test'
+		const recipient = 'Joel Test'
+		const income = '239023'
+		const email = 'test email@gmail.com'
 
 
-		const amount = parseInt(this.state.billing_info.purchase_amt*100);
+		const amount = 5.95 * 100
 		bodyFormData.append('id', token.id );
-		bodyFormData.append('amount', amount );
-		bodyFormData.append('description', this.state.billing_info.description );
-		bodyFormData.append('phone', store.getState().payer.phone );
-		//bodyFormData.append('form_data', form_data );
-		bodyFormData.append('tax_year', tax_year );
-		bodyFormData.append('payer', payer );
-		bodyFormData.append('recipient', recipient );
-		bodyFormData.append('income', income );
-		bodyFormData.append('email', email );
-
 		this.setState({tokenId:token.id});
-		console.log(token.id);
 
-		await axios.post(
-			"http://localhost:9000/charge",                // need to set baseURL somewhere...
-			bodyFormData,
-			{'Content-Type': 'multipart/form-data' }
-		)
-		.then(function (response) {
-			//handle success
-			console.log(response.status);
-			if (response.status === 200) {
-				response_status = response.status;
-				charge_id = response.data.response.id;
-			}
-			console.log(response);
-		})
-		.catch(function (response) {
-			//handle error
-			// display error in UI
-			console.log(response);
-		});
 
+		//DATA FROM PROPS
+		// const tax_year = JSON.stringify(store.getState().taxYear);
+		// const payer = JSON.stringify(store.getState().payer);
+		// const recipient = JSON.stringify(store.getState().recipient);
+		// const income = JSON.stringify(store.getState().income);
+		// const email = JSON.stringify(store.getState().email);
+
+		//BILLING INFO
+		// billing_info: {
+		// 	complete: false,
+		// 	purchase_amt: 5.95,
+		// 	//statement_descriptor: '1099s R Us, Inc',
+		// 	description: 'Online 1099 form',  
+		// 	name: 'Tom Customer',
+		// 	email: 'joel.the.keeper@gmail.com',
+		// 	phone: ''
+		// }
+
+		//ADD FORM DATA
+		// bodyFormData.append('amount', amount );
+		// bodyFormData.append('description', this.state.billing_info.description );
+		// bodyFormData.append('phone', store.getState().payer.phone );
+		// bodyFormData.append('tax_year', tax_year );
+		// bodyFormData.append('payer', payer );
+		// bodyFormData.append('recipient', recipient );
+		// bodyFormData.append('income', income );
+		// bodyFormData.append('email', email );
+
+
+
+		let API = 'https://fast1099.com:9000/charge'
+        var headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Access-Control-Allow-Origin": "*" 
+        }
+
+		await axios.post(API, bodyFormData, headers)
+			.then(function (response) {
+				//handle success
+				console.log(response.status);
+				if (response.status === 200) {
+					response_status = response.status;
+					charge_id = response.data.response.id;
+				}
+				console.log(response);
+			})	
+			.catch(function (response) {
+				//handle error
+				// display error in UI
+				console.log(response);
+			});
+
+
+		//LOG RESPONSE
 		if (response_status === 200) {
 			this.setState({charge_id: charge_id});
-			return "success";
+			console.log("success");
 		}
+
+
 	};
 
 
+
+
 	render() {
+
+		let customForm = (
+			<div>
+			<div class="form-group">
+				<label>Email address</label>
+				<input class="form-control" placeholder="name@example.com" />
+			</div>
+
+			<div class="form-group">
+				<label>Card Number</label>
+				<input class="form-control" placeholder="9999-9999-9999-9999" />
+			</div>
+
+			<div class="form-row">
+				<div class="col">
+					<label>MM / YY</label>
+					<input type="text" class="form-control" placeholder="First name" />
+				</div>
+				<div class="col">
+					<label>CVC</label>
+					<input type="text" class="form-control" placeholder="Last name" />
+				</div>
+			</div>
+			</div>
+		);
+
+
 	    return (
 	    	<div style={{minHeight:'100vh', height:'100vh'}}>
 	    		<div style={{backgroundColor:'white'}}>
@@ -149,42 +215,28 @@ class Checkout extends Component {
 		        <div style={{backgroundColor:'rgb(225,230,235)', minHeight:'100%'}}>
 		        	<br/>
 		        	<br/>
+
 		        	<div className='container'>
 		        	<div className='row'>
 
+		       
 			        	<div className='col-sm-5 offset-sm-1'>
 			        		<h5><strong>Payment Details</strong></h5>
 			        		<br/>
 
+			        		
 			        		<hr/>
 			        		<h6 style={{display:'inline-block', width:'60%'}}>Secure Card Payment</h6>
 			        		<img src={credit} style={{width:'40%'}} alt="..." />
 			        		<hr/>
 			        		<br/>
 
-							<div class="form-group">
-								<label>Email address</label>
-								<input class="form-control" placeholder="name@example.com" />
-							</div>
+			        		{customForm}
 
-							<div class="form-group">
-								<label>Card Number</label>
-								<input class="form-control" placeholder="9999-9999-9999-9999" />
-							</div>
-
-							<div class="form-row">
-								<div class="col">
-									<label>MM / YY</label>
-									<input type="text" class="form-control" placeholder="First name" />
-								</div>
-								<div class="col">
-									<label>CVC</label>
-									<input type="text" class="form-control" placeholder="Last name" />
-								</div>
-							</div>
-							
 							<br/>
 							<br/>
+
+
 			                <Link to='/thanks'>
 			                    <a style={{width:'100%'}} className="btn btn-primary btn-lg" href="#" role="button">
 			                    <strong>Complete Payment</strong>
@@ -227,6 +279,9 @@ class Checkout extends Component {
 
 		        	</div>
 		        	</div>
+
+		      
+
 	        		<br/>
 	        		<br/>
 
@@ -237,7 +292,7 @@ class Checkout extends Component {
 	}
 }
 
-export default Checkout;
+export default injectStripe(Checkout);
 
 
 

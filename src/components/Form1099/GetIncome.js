@@ -27,6 +27,7 @@ class GetIncome extends React.Component {
             isTouchedOther: false,
 
 
+
             federal_tax_withheld: '',
             federal_tax_withheldError:'',
             isTouchedFederal_tax_withheld: false,
@@ -34,6 +35,7 @@ class GetIncome extends React.Component {
             non_employee_comp: '',
             non_employee_compError:'',
             isTouchedNon_employee_comp: false,
+
 
 
             s409a_income: '',
@@ -47,6 +49,18 @@ class GetIncome extends React.Component {
             direct_sales: false,
             direct_salesError:'',
             isTouchedDirect_sales: false,
+
+
+
+            medical_payments: false,
+            medical_paymentsError:'',
+            isTouchedMedical_payments: false,
+
+
+            substitute_payments: false,
+            substitute_paymentsError:'',
+            isTouchedSubstitute_payments: false,
+
 
 
 
@@ -79,7 +93,6 @@ class GetIncome extends React.Component {
             state_income: '',
             state_incomeError:'',
             isTouchedState_income: false,
-
         }
 
 
@@ -110,10 +123,15 @@ class GetIncome extends React.Component {
         this.handleS409a_deferralsBlur = this.handleS409a_deferralsBlur.bind(this);
         this.handleS409a_deferralsChange = this.handleS409a_deferralsChange.bind(this);
 
+
+
+        this.handleMedical_paymentsBlur = this.handleMedical_paymentsBlur.bind(this);
+        this.handleMedical_paymentsChange = this.handleMedical_paymentsChange.bind(this);
+
         this.handleSubstitute_paymentsBlur = this.handleSubstitute_paymentsBlur.bind(this);
         this.handleSubstitute_paymentsChange = this.handleSubstitute_paymentsChange.bind(this);
 
-
+  
 
 
 
@@ -161,6 +179,38 @@ class GetIncome extends React.Component {
     
 
 
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
+
+    validateAllIncome(){
+
+        this.handleRentBlur()
+        this.handleRoyaltiesBlur()
+        this.handleOtherBlur()
+        this.handleFederal_tax_withheldBlur()
+        this.handleNon_employee_compBlur()
+        this.handleS409a_incomeBlur()
+        this.handleS409a_deferralsBlur()
+
+        this.handleMedical_paymentsBlur()
+        this.handleSubstitute_paymentsBlur()
+
+        this.handleFish_boatBlur()
+        this.handleGoldenBlur()
+        this.handleCrop_insBlur()
+        this.handleAttorneyBlur()
+     
+        this.handleState_tax_withheldBlur()
+        this.handleState_tax_idBlur()
+        this.handleState_incomeBlur()
+        this.handleDirect_salesBlur()
+    }
+
 
 
 
@@ -170,7 +220,7 @@ class GetIncome extends React.Component {
         });
     }
     handleRentBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.rent.value;
         let errorMessage = ''
 
 
@@ -187,7 +237,7 @@ class GetIncome extends React.Component {
         });
     }
     handleRoyaltiesBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.royalties.value;
         let errorMessage = ''
 
 
@@ -204,7 +254,7 @@ class GetIncome extends React.Component {
         });
     }
     handleOtherBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.other.value;
         let errorMessage = ''
 
 
@@ -221,7 +271,7 @@ class GetIncome extends React.Component {
         });
     }
     handleFederal_tax_withheldBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.federal_tax_withheld.value;
         let errorMessage = ''
 
 
@@ -238,7 +288,7 @@ class GetIncome extends React.Component {
         });
     }
     handleNon_employee_compBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.non_employee_comp.value;
         let errorMessage = ''
 
 
@@ -257,7 +307,7 @@ class GetIncome extends React.Component {
         });
     }
     handleS409a_incomeBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.s409a_income.value;
         let errorMessage = ''
 
 
@@ -276,7 +326,7 @@ class GetIncome extends React.Component {
         });
     }
     handleS409a_deferralsBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.s409a_deferrals.value;
         let errorMessage = ''
 
 
@@ -290,20 +340,38 @@ class GetIncome extends React.Component {
 
 
 
+    handleMedical_paymentsChange(e) {
+        this.setState({ medical_payments:e.target.value, isTouchedMedical_payments:true }, () => {
+            this.props.updateIncome(this.state)
+        });
+    }
+    handleMedical_paymentsBlur(e) {
+        let value = this.refs.medical_payments.value
+        let errorMessage = ''
+
+
+        this.setState({medical_paymentsError:errorMessage, isTouchedMedical_payments:true}, () => {
+            this.props.updateIncome(this.state)
+        })
+    };
+
+
+
     handleSubstitute_paymentsChange(e) {
         this.setState({ substitute_payments:e.target.value, isTouchedSubstitute_payments:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
     handleSubstitute_paymentsBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.substitute_payments.value
         let errorMessage = ''
 
 
-        this.setState({substitute_paymentsError:errorMessage, isTouchedSubstitute_payments:true}, () => {
+        this.setState({subsitute_paymentsError:errorMessage, isTouchedSubstitute_payments:true}, () => {
             this.props.updateIncome(this.state)
         })
     };
+
 
 
 
@@ -315,7 +383,7 @@ class GetIncome extends React.Component {
         });
     }
     handleFish_boatBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.fish_boat.value
         let errorMessage = ''
 
 
@@ -334,7 +402,7 @@ class GetIncome extends React.Component {
         });
     }
     handleGoldenBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.golden.value
         let errorMessage = ''
 
 
@@ -346,13 +414,14 @@ class GetIncome extends React.Component {
 
 
 
+
     handleCrop_insChange(e) {
         this.setState({ crop_ins:e.target.value, isTouchedCrop_ins:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
     handleCrop_insBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.crop_ins.value
         let errorMessage = ''
 
         this.setState({crop_insError:errorMessage, isTouchedCrop_ins:true}, () => {
@@ -363,13 +432,14 @@ class GetIncome extends React.Component {
 
 
 
+
     handleAttorneyChange(e) {
         this.setState({ attorney:e.target.value, isTouchedAttorney:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
     handleAttorneyBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.attorney.value 
         let errorMessage = ''
 
 
@@ -382,13 +452,16 @@ class GetIncome extends React.Component {
 
 
 
+
+
+
     handleState_tax_withheldChange(e) {
         this.setState({ state_tax_withheld:e.target.value, isTouchedState_tax_withheld:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
     handleState_tax_withheldBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.state_tax_withheld.value
         let errorMessage = ''
 
 
@@ -406,7 +479,7 @@ class GetIncome extends React.Component {
         });
     }
     handleState_tax_idBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.state_tax_id.value
         let errorMessage = ''
 
 
@@ -418,13 +491,14 @@ class GetIncome extends React.Component {
 
 
 
+
     handleState_incomeChange(e) {
         this.setState({ state_income:e.target.value, isTouchedState_income:true }, () => {
             this.props.updateIncome(this.state)
         });
     }
     handleState_incomeBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.state_income.value
         let errorMessage = ''
 
 
@@ -443,7 +517,7 @@ class GetIncome extends React.Component {
         });
     }
     handleDirect_salesBlur(e) {
-        let value = e.target.value; 
+        let value = this.refs.direct_sales.value 
         let errorMessage = ''
 
 
@@ -459,7 +533,7 @@ class GetIncome extends React.Component {
 
     render() {
 
-        let errorStyle = {border:'1px solid red'}
+    let errorStyle = {border:'1px solid red'}
 
 
     return (
@@ -477,6 +551,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="rent" 
+                        ref='rent'
                         style={this.state.rentError ? errorStyle : null}
                         onChange={(e) => this.handleRentChange(e)} 
                         onBlur={(e) => this.handleRentBlur(e)} 
@@ -496,6 +571,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="royalties" 
+                        ref='royalties'
                         style={this.state.royaltiesError ? errorStyle : null}
                         onChange={(e) => this.handleRoyaltiesChange(e)} 
                         onBlur={(e) => this.handleRoyaltiesBlur(e)} 
@@ -514,6 +590,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="other" 
+                        ref='other'
                         style={this.state.otherError ? errorStyle : null}
                         onChange={(e) => this.handleOtherChange(e)} 
                         onBlur={(e) => this.handleOtherBlur(e)} 
@@ -534,6 +611,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="federal_tax_withheld" 
+                        ref='federal_tax_withheld'
                         style={this.state.federal_tax_withheldError ? errorStyle : null}
                         onChange={(e) => this.handleFederal_tax_withheldChange(e)} 
                         onBlur={(e) => this.handleFederal_tax_withheldBlur(e)} 
@@ -555,6 +633,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="non_employee_comp" 
+                        ref='non_employee_comp'
                         style={this.state.non_employee_compError ? errorStyle : null}
                         onChange={(e) => this.handleNon_employee_compChange(e)} 
                         onBlur={(e) => this.handleNon_employee_compBlur(e)} 
@@ -577,6 +656,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="s409a_income" 
+                        ref='s409a_income'
                         style={this.state.s409a_incomeError ? errorStyle : null}
                         onChange={(e) => this.handleS409a_incomeChange(e)} 
                         onBlur={(e) => this.handleS409a_incomeBlur(e)} 
@@ -600,6 +680,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="s409a_deferrals" 
+                        ref='s409a_deferrals'
                         style={this.state.s409a_deferralsError ? errorStyle : null}
                         onChange={(e) => this.handleS409a_deferralsChange(e)} 
                         onBlur={(e) => this.handleS409a_deferralsBlur(e)} 
@@ -614,12 +695,59 @@ class GetIncome extends React.Component {
 
 
             <div align="left">
+                <label>Medical and Healthcare Payments</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="medical_payments" 
+                        ref='medical_payments'
+                        style={this.state.medical_paymentsError ? errorStyle : null}
+                        onChange={(e) => this.handleMedical_paymentsChange(e)} 
+                        onBlur={(e) => this.handleMedical_paymentsBlur(e)} 
+                        data-for='medical_payments' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any medical and healthcare payments in this field.", input: "medical_payments"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.medical_paymentsError}</span>
+            </div>
+
+
+
+
+            <div align="left">
+                <label>Substitute Payments in lieu of Dividends or Interest</label>
+                <div className="input-group mb-3" >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">$</span>
+                    </div>
+                    <input type="text" className="form-control" id="substitute_payments" 
+                        ref='substitute_payments'
+                        style={this.state.substitute_paymentsError ? errorStyle : null}
+                        onChange={(e) => this.handleSubstitute_paymentsChange(e)} 
+                        onBlur={(e) => this.handleSubstitute_paymentsBlur(e)} 
+                        data-for='substitute_payments' data-tip data-event='focus' data-event-off='blur'
+                    />
+                    {this.renderToolTip( {tip:"Enter any substitute payments in lieu of dividends or interest in this field.", input: "medical_payments"} )}
+                </div>
+                <span style={{color:'red'}}>{this.state.substitute_paymentsError}</span>
+            </div>
+
+
+
+ 
+
+
+
+
+            <div align="left">
                 <label>Fishing Boat Proceeds</label>
                 <div className="input-group mb-3" >
                     <div className="input-group-prepend">
                         <span className="input-group-text">$</span>
                     </div>
-                    <input type="text" className="form-control" id="other" 
+                    <input type="text" className="form-control" id="fish_boat" 
+                        ref='fish_boat'
                         style={this.state.fish_boatError ? errorStyle : null}
                         onChange={(e) => this.handleFish_boatChange(e)} 
                         onBlur={(e) => this.handleFish_boatBlur(e)} 
@@ -637,7 +765,8 @@ class GetIncome extends React.Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text">$</span>
                     </div>
-                    <input type="text" className="form-control" id="other" 
+                    <input type="text" className="form-control" id="golden" 
+                        ref='golden'
                         style={this.state.goldenError ? errorStyle : null}
                         onChange={(e) => this.handleGoldenChange(e)} 
                         onBlur={(e) => this.handleGoldenBlur(e)} 
@@ -656,7 +785,8 @@ class GetIncome extends React.Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text">$</span>
                     </div>
-                    <input type="text" className="form-control" id="other" 
+                    <input type="text" className="form-control" id="crop_ins" 
+                        ref='crop_ins'
                         style={this.state.crop_insError ? errorStyle : null}
                         onChange={(e) => this.handleCrop_insChange(e)} 
                         onBlur={(e) => this.handleCrop_insBlur(e)} 
@@ -676,7 +806,8 @@ class GetIncome extends React.Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text">$</span>
                     </div>
-                    <input type="text" className="form-control" id="other" 
+                    <input type="text" className="form-control" id="attorney" 
+                        ref='attorney'
                         style={this.state.attorneyError ? errorStyle : null}
                         onChange={(e) => this.handleAttorneyChange(e)} 
                         onBlur={(e) => this.handleAttorneyBlur(e)} 
@@ -699,6 +830,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="state_tax_withheld" 
+                        ref='state_tax_withheld'
                         style={this.state.state_tax_withheldError ? errorStyle : null}
                         onChange={(e) => this.handleState_tax_withheldChange(e)} 
                         onBlur={(e) => this.handleState_tax_withheldBlur(e)} 
@@ -719,6 +851,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">12-3...</span>
                     </div>
                     <input type="text" className="form-control" id="state_tax_id" 
+                        ref='state_tax_id'
                         style={this.state.state_tax_idError ? errorStyle : null}
                         onChange={(e) => this.handleState_tax_idChange(e)} 
                         onBlur={(e) => this.handleState_tax_idBlur(e)} 
@@ -739,6 +872,7 @@ class GetIncome extends React.Component {
                         <span className="input-group-text">$</span>
                     </div>
                     <input type="text" className="form-control" id="state_income" 
+                        ref='state_income'
                         style={this.state.state_incomeError ? errorStyle : null}
                         onChange={(e) => this.handleState_incomeChange(e)} 
                         onBlur={(e) => this.handleState_incomeBlur(e)} 
@@ -758,6 +892,7 @@ class GetIncome extends React.Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text">
                             <input type="checkbox"   
+                                ref='direct_sales'
                                 checked={this.state.direct_sales}
                                 onChange={(e) => this.handleDirect_salesChange(e)} 
                                 onBlur={(e) => this.handleDirect_salesBlur(e)} 

@@ -16,19 +16,30 @@ import history from '../../history';
 class Form1099 extends React.Component {
 	constructor(){
 		super()
-
 		this.state = {
 			errors:[],
 		}
 	}
 	
 
+    async handleSubmitClick(){
+        await this.validateAll()
 
-	handleSubmitClick = () => {
-		if(this.state.errors.length == 0 ){
-			history.push('/preview');
-		}
-	}
+        if(this.state.errors.length == 0 ){
+            history.push('/preview');
+        }
+    }
+
+
+
+    validateAll(){
+        this.getIncome.validateAllIncome()
+        this.getEmail.validateAllEmail()
+        this.getRecipient.validateAllRecipient()
+        this.getPayer.validateAllPayer()
+    }
+
+
 
 	componentDidUpdate(prevProps, prevState, snapshot){
 		if(prevProps != this.props){
@@ -38,6 +49,7 @@ class Form1099 extends React.Component {
             let income = this.props.income
             let email = this.props.email
             let errors = []
+
 
 
             if(payer.nameError){
@@ -146,8 +158,8 @@ class Form1099 extends React.Component {
                 errors.push(email.emailError)
             }
 
-            this.setState({errors:errors})
 
+            this.setState({errors:errors})
 		}
 	}
 
@@ -156,7 +168,7 @@ class Form1099 extends React.Component {
 	render() {
 
         let errorList = this.state.errors.map((error) => {
-            return (<p>{error}</p>)
+            return (<p key={error}>{error}</p>)
         })
 
 
@@ -164,10 +176,6 @@ class Form1099 extends React.Component {
         if(this.state.errors.length > 0){
             disabled = true
         }
-
-
-
-        //ON SUBMIT - NEED TO VALIDATE ALL FIELDS
 
 
 		return (
@@ -178,21 +186,23 @@ class Form1099 extends React.Component {
 				<GetTaxYear />
 				<br/>
 				<hr></hr>
-				<GetPayerInfo />
+
+				<GetPayerInfo onRef={ref => (this.getPayer = ref)} />
 				<br/>
 				<hr></hr>
-				<GetRecipientInfo />
 
+				<GetRecipientInfo onRef={ref => (this.getRecipient = ref)} />
 				<br/>
 				<hr></hr>
-				<GetIncome />
 
+				<GetIncome onRef={ref => (this.getIncome = ref)} />
 				<br/>
 				<hr></hr>
-				<GetEmail />
 
+				<GetEmail onRef={ref => (this.getEmail = ref)}/>
 				<hr></hr>
                 <br/>
+
                 {this.state.errors.length >0 &&
                 <div className="alert alert-danger" align="center">
                     {errorList}

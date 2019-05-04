@@ -45,7 +45,6 @@ class GetTaxYear extends React.Component {
         });
     }
 
-
     handleIsVoidChange(e) {
         this.setState({ isVoid:!this.state.isVoid}, () => {
             this.props.updateTaxYear(this.state)
