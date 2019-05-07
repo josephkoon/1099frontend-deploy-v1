@@ -22,7 +22,8 @@ class Checkout extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			payment_message:null
+			payment_message:null,
+			card_name:null
 		};
 
 		this.submit = this.submit.bind(this);
@@ -61,12 +62,19 @@ class Checkout extends Component {
 
 
 	async submit(e) {
+		//Card Name Required
+		if(!this.state.card_name){
+			this.setState({payment_message:'Card Name is Required'})
+			return
+		}
+
 		//DOCS FOR STRIPE
 		//https://stripe.com/docs/recipes/elements-react
 
 		//Get Token
 		let {token} = await this.props.stripe.createToken({
-			name: "TEST CHARGE", 
+			name: this.state.card_name, 
+			//NOT USED
 			// address_line1: "123 Main", 
 			// address_city: "San Francisco",
 			// address_zip: "94111",
@@ -81,7 +89,6 @@ class Checkout extends Component {
 
 
 		if(token){
-			console.log(token)
 
 			let bodyFormData = new FormData();
 
@@ -92,7 +99,7 @@ class Checkout extends Component {
 		    const email = JSON.stringify(this.props.email);
 
 		    bodyFormData.append('id', token.id);
-		    bodyFormData.append('amount', parseInt(3.99*100) );
+		    bodyFormData.append('amount', parseInt(3.99 * 100) );
 		    bodyFormData.append('description', 'Online 1099 form' );
 
 		    bodyFormData.append('phone', this.props.payer.phone);
@@ -145,6 +152,12 @@ class Checkout extends Component {
 
 
 
+    handleNameChange(e) {
+        this.setState({ card_name:e.target.value })
+    }
+
+
+
 
 
 	render() {
@@ -191,23 +204,30 @@ class Checkout extends Component {
 			        		<br/>
 
 					        <div className='row'>
+
 					        	<div className='col-12'>
-					        		<CardNumberElement className='form-control' />
+					        		<input placeholder='Name on Card *' type="text" className='form-control' onChange={(e) => this.handleNameChange(e)} />
+					        		<br/>
+					        	</div>
+					        	
+
+					        	<div className='col-12'>
+					        		<CardNumberElement />
 					        		<br/>
 					        	</div>
 					        	
 
 					        	<div className='col-6'>
-					        		<CardExpiryElement className='form-control'/>
+					        		<CardExpiryElement/>
 					        	</div>
 					        	<div className='col-6'>
-					        		<CardCVCElement className='form-control'/>
+					        		<CardCVCElement />
 					        	</div>
 
 								
 								<div className='col-12 text-center'>
 									<br/>
-									<h6 style={{color:'blue'}}>{this.state.payment_message}</h6>
+									<h6 style={{color:'red'}}>{this.state.payment_message}</h6>
 									<br/>
 								</div>
 

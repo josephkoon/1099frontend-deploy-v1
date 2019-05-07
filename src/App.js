@@ -12,9 +12,9 @@ import ThanksPage from './components/ThanksPage';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 
-//const key ="pk_test_TYooMQauvdEDq54NiTphI7jx";  // demo test key
-var stripeKey = "pk_test_mplZpfWve0Ya8im2sguzL8dI";    // my personal test key
 
+//var stripeKey = "pk_test_mplZpfWve0Ya8im2sguzL8dI";    // my personal test key
+var stripeKey = "pk_live_RhMNKj89wonNbBpD1Otayzcj"
 
 class App extends Component {
     render() {
