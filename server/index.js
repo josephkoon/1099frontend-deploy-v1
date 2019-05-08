@@ -4,5 +4,5 @@ var path = require('path');
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.listen(443);
+app.listen(80);
 
